@@ -1,0 +1,266 @@
+<html>
+	<head>
+		<title>Register for the event</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+		
+		</script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+		<script> 
+
+		function initial(){
+	        titleColor();
+	        var a=localStorage.getItem('event');
+	        console.log(a);
+	        if(a=='diwali'){
+	          //console.log('hii');
+	          $('#hh').text('Celebrate Diwali With Us!');
+	        }
+	        else if(a=='freshers'){
+	          $('body').css({background:'url(css/img/party.jpg)',backgroundSize:'cover'});
+	          /**/
+	          $('#hh').text("Come Let's Party!");
+	          $('#reg').css({height:'fit-content',backgroundColor:'rgba(127, 179, 213 ,0.9)'});
+	          $('#reg').find('label').css({color:'black'});
+	          $('#regh2').css({color:'white'});
+	          $('#checkif').css({display:'block'});
+	          $('#btn').find('input').addClass('btn btn-danger');
+	          /*$('body').load(function(){
+	          	var h=document.getElementById('hh');
+	   			h.style.color='navy';
+	   			changeColor();
+	          });*/
+	        }
+      }
+      function titleColor(){
+
+        var a=document.getElementById('hh');
+        a.style.color='#f0ad4e';
+        setTimeout(changetitle,1000);
+      }
+
+      function changetitle(){
+        var a=document.getElementById('hh');
+        a.style.color="#FF5733";
+        setTimeout(titleColor,1000);
+      } 
+
+      function change(){
+      	var h=document.getElementById('hh');
+	    h.style.color='navy';
+	    setTimeout('changeColor',1000);
+      }
+      function changeColor(){
+      	document.getElementById('hh').style.color='black';
+      	setTimeout('change',1000);
+      }
+		
+	 function validateform(){  
+		var name=document.myform.name.value;  
+		var email=document.myform.id.value;
+		console.log(email);
+		
+		if (name==null || name==""){  
+		  alert("Name can't be blank");  
+		  return false;  
+		}
+
+		else{
+			checkid();
+		}
+
+		
+		
+				
+		} 
+
+		function checkid(){
+			var id=document.myform.id.value;
+
+			if(id==null || id==''){  
+			  alert("Email id cannot be null");  
+			  return false;  
+			}
+			else if(id.length>1){
+			  var atposition=id.indexOf("@"); 
+			  console.log(atposition); 
+				var dotposition=id.lastIndexOf(".");  
+				if (atposition<1 || dotposition<atposition+2 || dotposition+2>=id.length){  
+				  alert("Please enter a valid e-mail address \n atpostion:"+atposition+"\n dotposition:"+dotposition);  
+				 return false;  
+				}
+			} 
+			
+			checknum();
+			
+			
+		} 	
+
+		function checknum(){
+
+			if(isNaN(document.myform.num.value) || document.myform.num.value.length<10){
+				alert('Enter Valid Number! Number should be 10 digit long');
+				return false;
+			}
+			checkQuarter();
+		}
+
+		function checkQuarter(){
+			if(document.getElementById('quarter').value==''){
+				alert('Select Quarter');
+				return false;
+			}
+			checkfood();
+		}
+
+		function checkfood(){
+			if(document.myform.food[0].checked==false && document.myform.food[1].checked==false){
+				alert('Select food option');
+				return false;
+			}
+			$('#success_message').css({display:'block'});
+			//sendmail();
+		}
+
+		function sendmail(){
+
+			/*$('form').attr('action',"mailto:"+id+
+					"?subject="+escape("Successfully Registered")
+					+"&body="+escape('Hello'+document.myform.name.value+" Show this mail at the entrance.");*/
+			var id=document.myform.id.value;
+			var link="mailto:"+id+
+					"?subject="+escape("Successfully Registered")
+					+"&body="+escape('Hello'+document.myform.name.value+" Show this mail at the entrance.");
+			window.location.href=link;
+
+		}		
+		</script>  
+
+</head> 
+<body id="register" onload="initial()">  
+	<h1 id="hh" class="text-center">Celebrate Diwali with you!</h1>
+	<div id="reg" class=" container text-center">
+
+	<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
+		<form name="myform" class="form-horizontal" onsubmit="return validateform()" > 
+		<fieldset>
+			<legend><center><h2 id="regh2"><b>Register Here</b></h2></center></legend>
+			<p class="pull-right" id='pp'>Fields with * are mandatory</p>
+			<br>
+			<div class="form-group">
+		      <label class="col-md-4 control-label">Full Name<sup class="supp">*</sup></label>  
+		      <div class="col-md-4 inputGroupContainer">
+		      <div class="input-group">
+		      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		      <input  name="name" placeholder="First Name" class="form-control"  type="text" onkeyup="checkname()">
+		        </div>
+		      </div>
+		    </div> 
+		    
+			
+		    <div class="form-group">
+			  <label class="col-md-4 control-label">E-Mail<sup class="supp">*</sup></label>  
+			   <div class="col-md-4 inputGroupContainer">
+			   <div class="input-group">
+			   <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+			   <input name="id" placeholder="E-Mail Address" class="form-control"  type="text">
+			    </div>
+			  </div>
+			</div>		
+			
+
+			<div class="form-group">
+			  <label class="col-md-4 control-label">Contact No.<sup class="supp">*</sup></label>  
+			    <div class="col-md-4 inputGroupContainer">
+			    <div class="input-group">
+			    <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+			  	<input name="num" placeholder="(639)" class="form-control" type="text">
+			    </div>
+			  </div>
+			</div>
+			
+
+			<div class="form-group"> 
+				<label class="col-md-4 control-label">Joining Quarter:<sup class="supp">*</sup></label>
+				<div class="col-md-4 selectContainer">
+	    		<div class="input-group">
+	        	<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<select id="quarter" class="form-control selectpicker">
+					<option value=''>Select option</option>
+					<option value="fall2017">Fall-2017</option>
+					<option value="spring2017">Spring-2017</option>
+					<option value="winter2017">Winter-2017</option>
+					<option value="fall2016">Fall-2016</option>
+					<option value="spring2016">Spring-2017</option>
+				</select>
+				</div>
+				</div>
+			</div>
+			
+
+
+			<div class="form-group">
+				<label class="col-md-4 control-label">Select Food Preference<sup class="supp">*</sup></label>  
+				<div class="col-md-4 inputGroupContainer lheight">
+				<div class="input-group">
+				<input type="radio" name="food" value="veg"><span>Veg</span>
+				<input type="radio" name="food" value="nveg"><span>NonVeg</span>
+				</div>
+			</div>
+			</div>
+			
+
+
+			<div class="form-group">
+	  			<label class="col-md-4 control-label" >Are you willing to Volunteer?</label> 
+			    <div class="col-md-4 inputGroupContainer lheight">
+			    <div class="input-group">
+				<input type="radio" name="volunteer" value="yes"><span>Yes</span>
+				<input type="radio" name="volunteer" value="no"><span>No</span>
+				</div>
+				</div>
+			</div>
+			
+
+			<div class="form-group">
+			    <label class="col-md-4 control-label" >Are you interested in participating in any of the activities?</label> 
+			    <div class="col-md-4 inputGroupContainer lheight">
+			    <div class="input-group">
+	    		<input type="checkbox" name="act" value="sing"><span class="abc"> Singing</span>
+		  		<input type="checkbox" name="act" value="dance"> <span class="abc">Dancing</span>
+		  		<input type="checkbox" name="act" value="other"><span>Other</span>
+		  		
+		  		</div>
+		  		</div>
+	  		</div>
+
+	  		<div class="form-group" id="checkif">
+			    <label class="col-md-4 control-label" >Are you interested in participating in Mr/Ms Fresher competition?</label> 
+			    <div class="col-md-4 inputGroupContainer lheight">
+			    <div class="input-group">
+			    <input type="radio" name="fresh" value="yes"><span>Yes</span>
+				<input type="radio" name="fresh" value="no"><span>No</span>
+				</div>
+				</div>
+			</div>
+
+	  		<div class="form-group" id="btn">
+				<label class="col-md-4 control-label"></label>
+				<div class="col-md-4"><br>
+				<input type="submit" value="Register" class="btn btn-warning">  
+				</div>
+			</div>
+			</fieldset>
+		</form> 
+	</div>
+
+</body>
+</html>
